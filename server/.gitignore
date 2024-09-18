@@ -1,0 +1,36 @@
+# Ignore the virtual environment directory
+venv/
+env/
+
+# Ignore compiled bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore Django-specific files
+db.sqlite3
+*.log
+
+# Ignore media and static files
+/media
+/static
+
+# Ignore environment variables file
+.env
+
+# Ignore IDE/editor configuration files
+.vscode/
+.idea/
+
+# Ignore node modules (if you use npm or yarn for frontend assets)
+node_modules/
+
+# Ignore migrations (optional if you don't want to version control migrations)
+**/migrations/
+
+# Ignore cache and temporary files
+*.swp
+*.swo
+.DS_Store
+*.bak
+*.tmp
