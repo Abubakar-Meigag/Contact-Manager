@@ -7,7 +7,14 @@ CORS(app)
 
 @app.route('/contact')
 def contact():
-    return jsonify({'contacts': ['contact1', 'contact2', 'contact3', 'contact4']})
+    pass
+
+
+# post contact to table using postgreSQL 
+
+# update contact which is in database
+
+# delete contact from the data base table 
 
 if __name__ == "__main__":
     app.run()
