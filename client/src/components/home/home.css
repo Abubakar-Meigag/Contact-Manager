@@ -1,0 +1,15 @@
+/* Home.css */
+.home-box {
+  width: 60%; /* Adjust the width of the square box */
+  background-color: #fff;
+}
+
+nav, footer {
+  height: 50px; 
+}
+
+@media (max-width: 768px) {
+  .home-box {
+    width: 90%; 
+  }
+}

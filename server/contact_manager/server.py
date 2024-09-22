@@ -1,5 +1,15 @@
-from flask import Flask, jsonify
+from flask import Flask
+import os
+from dotenv import load_dotenv
 from flask_cors import CORS
+
+load_dotenv()
+
+external_link = os.getenv('EXTERNAL_LINK')
+api_key = os.getenv('API_KEY')
+
+print(f"External link: {external_link}")
+print(f"API Key: {api_key}")
 
 
 app = Flask(__name__)

@@ -30,8 +30,8 @@ const App = () => {
 
 
   return (
-    <div>
-      <div>
+    <div className="vh-100">
+      <div className="">
         <Home />
       </div>
     </div>
