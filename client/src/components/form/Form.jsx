@@ -1,26 +1,65 @@
 import React, { useState } from "react";
-import './form.css';  // Import CSS file for form styling
+import "./form.css";
 
 const Form = () => {
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [selectedModuleId, setSelectedModuleId] = useState("");
   const titles = ["Mr", "Ms", "Mrs", "Miss", "Master", "Madam", "Sir", "Lord"];
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    city: "",
+    address: "",
+    title: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.first_name || !formData.last_name || !formData.title) {
+      alert("You must fill all the required fields");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://127.0.0.1:5000/contact",{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to submit form");
+        }
+
+        alert("Form submitted successfully");
+
+    } catch (err) {
+      console.error(err);
+      alert("Failed to submit form, please try again.");
+    }
+  };
 
   return (
     <div className="form-container">
       <h2 className="text-center">Contact Manager</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="titles">Title</label>
           <select
             id="titles"
+            value={formData.title}
+            name="title"
             className="form-control"
             required
-            onChange={(e) => setSelectedModuleId(e.target.value)}
+            onChange={handleInputChange}
           >
             <option value="">Choose title...</option>
             {titles.map((title, index) => (
@@ -37,9 +76,10 @@ const Form = () => {
             <input
               id="first_name"
               type="text"
+              name="first_name"
               placeholder="First Name"
-              value={first_name}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={formData.first_name}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -47,10 +87,11 @@ const Form = () => {
             <label htmlFor="last_name">Last Name</label>
             <input
               id="last_name"
+              name="last_name"
               type="text"
               placeholder="Last Name"
-              value={last_name}
-              onChange={(e) => setLastName(e.target.value)}
+              value={formData.last_name}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -61,20 +102,22 @@ const Form = () => {
             <label htmlFor="email">Email</label>
             <input
               id="email"
+              name="email"
               type="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleInputChange}
             />
           </div>
           <div className="form-group">
             <label htmlFor="city">City</label>
             <input
               id="city"
+              name="city"
               type="text"
               placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              value={formData.city}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -83,10 +126,11 @@ const Form = () => {
           <label htmlFor="address">Address</label>
           <input
             id="address"
+            name="address"
             type="text"
             placeholder="Enter Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            value={formData.address}
+            onChange={handleInputChange}
           />
         </div>
 

@@ -1,49 +1,66 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
 from flask_cors import CORS
+import psycopg2
+from psycopg2 import sql
+
 
 load_dotenv()
-
-external_link = os.getenv('EXTERNAL_LINK')
-api_key = os.getenv('API_KEY')
-
-print(f"External link: {external_link}")
-print(f"API Key: {api_key}")
 
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/contact')
+
+def get_db_connection():
+    conn = psycopg2.connect(os.getenv("EXTERNAL_DATA_LINK"))
+    return conn
+
+
+@app.route("/contact", methods=["POST"])
 def contact():
-    pass
+    data = request.json
+    first_name = data.get("first_name")
+    last_name = data.get("last_name")
+    email = data.get("email")
+    city = data.get("city")
+    address = data.get("address")
+    title = data.get("title")
+
+    if not first_name or not last_name or not title:
+        return jsonify({"error": " Missing required fields"}), 400
+
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        insert_query = sql.SQL(
+            """
+            INSERT INTO contact (first_name, last_name, email, city, address, title)
+            values (%s, %s, %s, %s, %s, %s)
+        """
+        )
+
+        cur.execute(insert_query, (first_name, last_name, email, city, address, title))
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        return jsonify({"message": "Contact added successfully"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
-# post contact to table using postgreSQL 
+# post contact to table using postgreSQL
 
 # update contact which is in database
 
-# delete contact from the data base table 
+# delete contact from the data base table
 
 if __name__ == "__main__":
     app.run()
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # from flask import Flask, render_template, request, redirect, url_for
@@ -68,7 +85,7 @@ if __name__ == "__main__":
 #         email = request.form['email']
 #         phone_number = request.form['phone_number']
 #         address = request.form['address']
-        
+
 #         # Add the contact to the in-memory list
 #         contacts.append({
 #             'name': name,
@@ -77,7 +94,7 @@ if __name__ == "__main__":
 #             'address': address
 #         })
 #         return redirect(url_for('index'))
-    
+
 #     return render_template('add_contact.html')
 
 # if __name__ == '__main__':
