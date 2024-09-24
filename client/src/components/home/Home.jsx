@@ -11,17 +11,14 @@ const Home = () => {
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100 border border-dark">
       <div className="home-box border border-dark">
         <div className="row">
-          {/* Navbar */}
           <div className="col-12">
             <Nav />
           </div>
         </div>
         <div className="row mt-3">
-          {/* Sidebar */}
           <div className="col-md-4 border border-dark">
             <Side />
           </div>
-          {/* Form and Contact */}
           <div className="col-md-8">
             <div className="border border-dark">
               <Form />
@@ -31,7 +28,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/* Footer */}
         <div className="col-12">
           <Footer />
         </div>
