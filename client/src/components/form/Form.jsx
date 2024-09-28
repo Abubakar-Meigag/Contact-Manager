@@ -29,7 +29,7 @@ const Form = ({ onAddContact }) => {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/addContact",{
+      const res = await fetch("https://contact-manager-kvur.onrender.com/addContact",{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),

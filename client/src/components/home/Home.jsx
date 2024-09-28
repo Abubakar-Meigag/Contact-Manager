@@ -11,7 +11,7 @@ const Home = () => {
 
   const fetchContacts = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/contact');
+      const response = await fetch('https://contact-manager-kvur.onrender.com/contact');
       const data = await response.json();
       setContacts(data);
     } catch (error) {
@@ -29,7 +29,7 @@ const Home = () => {
 
   const deleteContact = async (contact) => {
     try {
-      await fetch(`http://127.0.0.1:5000/contact/${contact.id}`, { method: 'DELETE' });
+      await fetch(`https://contact-manager-kvur.onrender.com/contact/${contact.id}`, { method: 'DELETE' });
       setContacts(prevContacts => prevContacts.filter(c => c.id !== contact.id));
     } catch (error) {
       console.error('Error deleting contact:', error);
