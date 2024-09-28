@@ -1,0 +1,19 @@
+.contact-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.contact-container h2 {
+  margin-top: 0;
+  font-size: 1.8em;
+  color: #333;
+}
+
+.contact-container p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color: #555;
+}

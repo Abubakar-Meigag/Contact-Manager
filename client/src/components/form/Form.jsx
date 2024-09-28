@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./form.css";
 
-const Form = () => {
+const Form = ({ onAddContact }) => {
   const titles = ["Mr", "Ms", "Mrs", "Miss", "Master", "Madam", "Sir", "Lord"];
   const [formData, setFormData] = useState({
     first_name: "",
@@ -29,7 +29,7 @@ const Form = () => {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/contact",{
+      const res = await fetch("http://127.0.0.1:5000/addContact",{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -39,7 +39,19 @@ const Form = () => {
           throw new Error("Failed to submit form");
         }
 
-        alert("Form submitted successfully");
+      const newContact = await res.json();
+      onAddContact(newContact);
+
+      alert("Form submitted successfully");
+
+      setFormData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        city: "",
+        address: "",
+        title: "",
+      });
 
     } catch (err) {
       console.error(err);

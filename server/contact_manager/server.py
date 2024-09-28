@@ -18,7 +18,6 @@ def get_db_connection():
     return conn
 
 
-# post contact to table using postgreSQL
 @app.route("/addContact", methods=["POST"])
 def contact():
     data = request.json
@@ -30,7 +29,7 @@ def contact():
     title = data.get("title")
 
     if not first_name or not last_name or not title:
-        return jsonify({"error": " Missing required fields"}), 400
+        return jsonify({"error": "Missing required fields"}), 400
 
     try:
         conn = get_db_connection()
@@ -39,16 +38,28 @@ def contact():
         insert_query = sql.SQL(
             """
             INSERT INTO contact (first_name, last_name, email, city, address, title)
-            values (%s, %s, %s, %s, %s, %s)
-        """
+            VALUES (%s, %s, %s, %s, %s, %s) RETURNING id
+            """
         )
 
         cur.execute(insert_query, (first_name, last_name, email, city, address, title))
+        new_contact_id = cur.fetchone()[0]
         conn.commit()
+
+        new_contact = {
+            "id": new_contact_id,
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "city": city,
+            "address": address,
+            "title": title,
+        }
+
         cur.close()
         conn.close()
 
-        return jsonify({"message": "Contact added successfully"})
+        return jsonify(new_contact), 201
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -62,19 +73,22 @@ def get_contact():
         cur = conn.cursor()
 
         # Fetch all data from the "contact" table
-        cur.execute("SELECT first_name, last_name, email, city, address, title FROM contact")
+        cur.execute(
+            "SELECT id, title, first_name, last_name, email, city, address FROM contact"
+        )
         rows = cur.fetchall()
 
         # Define a structure for the result
         contacts = []
         for row in rows:
             contact = {
-                "first_name": row[0],
-                "last_name": row[1],
-                "email": row[2],
-                "city": row[3],
-                "address": row[4],
-                "title": row[5]
+                "id": row[0],
+                "title": row[1],
+                "first_name": row[2],
+                "last_name": row[3],
+                "email": row[4],
+                "city": row[5],
+                "address": row[6],
             }
             contacts.append(contact)
 
@@ -102,24 +116,24 @@ def update_contact(id):
         fields_to_update = []
         values = []
 
-        if 'first_name' in data:
+        if "first_name" in data:
             fields_to_update.append("first_name = %s")
-            values.append(data['first_name'])
-        if 'last_name' in data:
+            values.append(data["first_name"])
+        if "last_name" in data:
             fields_to_update.append("last_name = %s")
-            values.append(data['last_name'])
-        if 'email' in data:
+            values.append(data["last_name"])
+        if "email" in data:
             fields_to_update.append("email = %s")
-            values.append(data['email'])
-        if 'city' in data:
+            values.append(data["email"])
+        if "city" in data:
             fields_to_update.append("city = %s")
-            values.append(data['city'])
-        if 'address' in data:
+            values.append(data["city"])
+        if "address" in data:
             fields_to_update.append("address = %s")
-            values.append(data['address'])
-        if 'title' in data:
+            values.append(data["address"])
+        if "title" in data:
             fields_to_update.append("title = %s")
-            values.append(data['title'])
+            values.append(data["title"])
 
         # Ensure there's something to update
         if not fields_to_update:
@@ -166,10 +180,8 @@ def delete_contact(id):
 
         return jsonify({"message": "Contact deleted successfully"}), 200
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
+    except Exception as err:
+        return jsonify({"error": str(err)}), 500
 
 
 if __name__ == "__main__":

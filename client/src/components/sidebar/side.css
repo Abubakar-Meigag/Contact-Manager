@@ -1,0 +1,90 @@
+.side-container {
+  flex: 1;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.favorites-section {
+  margin-bottom: 20px;
+}
+
+.favorites-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.contacts-list {
+  list-style-type: none;
+  padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.favorites-list {
+  list-style-type: none;
+  padding: 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.contact-item, .favorite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 5px;
+  background: #ffffff;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-details {
+  flex: 1;
+  cursor: pointer;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.heart-button, .delete-button, .remove-favorite {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.title-header {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 0;
+  border-bottom: 2px solid #ddd;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.loading {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  color: #007bff;
+  margin-top: 20px;
+}

@@ -1,10 +1,11 @@
 import React from "react";
+import './nav.css';
 
 const Nav = () => {
   return( 
-  <div className="bg-black text-white text-center p-2 text-bold">
-    Manage Contact
-  </div>
+    <div className="nav-bar">
+      <h1>Contact Manager</h1>
+    </div>
   )
 };
 

@@ -1,15 +1,59 @@
-/* Home.css */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+  padding: 20px; /* Add padding to allow space on mobile */
+}
+
 .home-box {
-  width: 60%; /* Adjust the width of the square box */
-  background-color: #fff;
+  width: 90%; /* Adjusted for better responsiveness */
+  max-width: 1200px; /* Set a maximum width for large screens */
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-nav, footer {
-  height: 50px; 
+.content-section {
+  display: flex;
+  flex-direction: column; /* Set default to column for mobile-first design */
+  padding: 20px;
 }
 
-@media (max-width: 768px) {
+.main-content {
+  flex: 2;
+  margin-top: 20px; /* Adjusted for stacking on mobile */
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 950px) {
+  .content-section {
+    flex-direction: row; /* Change to row for tablets and larger screens */
+  }
+
+  .main-content {
+    margin-left: 20px; /* Add margin only for larger screens */
+    margin-top: 0; /* Remove top margin when in row layout */
+  }
+}
+
+@media (max-width: 800px) {
   .home-box {
-    width: 90%; 
+    width: 100%; /* Use full width on small screens */
+    padding: 10px;
+  }
+
+  .main-content {
+    padding: 15px; /* Reduce padding on small screens */
+  }
+
+  .content-section {
+    padding: 10px; /* Reduce padding on small screens */
   }
 }
