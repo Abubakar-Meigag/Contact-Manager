@@ -12,6 +12,9 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def home():
+    return "Hello, this is your Flask app running on Render!"
 
 def get_db_connection():
     conn = psycopg2.connect(os.getenv("EXTERNAL_DATA_LINK"))
@@ -185,4 +188,4 @@ def delete_contact(id):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
