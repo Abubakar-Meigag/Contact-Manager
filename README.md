@@ -169,6 +169,6 @@ Contributions are welcome! Please follow these steps to contribute:
 5. Create a new Pull Request.
 
 ## 📞 Contact
-For any questions or suggestions, please contact: [your-email@example.com](mailto:abubakar.meigag@example.com).
+For any questions or suggestions, please contact: [abubakar.meigag@gmail.com](mailto:abubakar.meigag@gmail.com).
 
 
