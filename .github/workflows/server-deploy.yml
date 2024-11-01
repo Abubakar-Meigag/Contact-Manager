@@ -30,10 +30,11 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-            docker build -t flask-contact-manager -f Contact-Manager/server/Dockerfile Contact-Manager/server
+            cd Contact-Manager/server
+            docker build -t flask-contact-manager -f ./server/Dockerfile
             docker tag flask-contact-manager abubakarmeigag/flask-contact-manager
             docker push abubakarmeigag/flask-contact-manager
-        
+
       - name: SSH and deploy on EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
