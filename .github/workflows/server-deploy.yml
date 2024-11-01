@@ -34,6 +34,7 @@ jobs:
           docker tag flask-contact-manager abubakarmeigag/flask-contact-manager
           docker push abubakarmeigag/flask-contact-manager
 
+          
       - name: Set up SSH key
         run: |
             echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
