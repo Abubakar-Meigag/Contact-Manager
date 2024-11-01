@@ -34,6 +34,9 @@ jobs:
           docker tag flask-contact-manager abubakarmeigag/flask-contact-manager
           docker push abubakarmeigag/flask-contact-manager
 
+      - name: Create .ssh directory
+        run: mkdir -p ~/.ssh
+  
       - name: Add EC2 to known_hosts
         run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
