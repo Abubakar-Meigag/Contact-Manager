@@ -30,7 +30,22 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-            docker build -t flask-contact-manager -f Contact-Manager/server/Dockerfile .
+
+        Given the structure you provided, the docker build command needs to correctly reference the relative path to the Dockerfile and the build context from within the GitHub Actions environment.
+
+        Since your Dockerfile is located within the Contact-Manager/server directory, you should set both the path to the Dockerfile and the build context accordingly.
+        
+        Here’s how to modify the GitHub Actions workflow:
+        
+        1. Set Build Context to Contact-Manager/server
+        Since the Dockerfile is in Contact-Manager/server, set that directory as the context instead of the root directory. Also, explicitly specify the path to the Dockerfile using -f.
+        
+        Update the Build and push Docker image step:
+        
+
+      - name: Build and push Docker image
+        run: |
+            docker build -t flask-contact-manager -f Contact-Manager/server/Dockerfile Contact-Manager/server
             docker tag flask-contact-manager abubakarmeigag/flask-contact-manager
             docker push abubakarmeigag/flask-contact-manager
         
