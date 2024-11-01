@@ -14,7 +14,7 @@ CORS(app)
 
 @app.route('/')
 def home():
-    return "Hello, this is your Flask app running on Render & EC2 instance!!!"
+    return "Hello, this is your Flask app running on Render!!"
 
 def get_db_connection():
     conn = psycopg2.connect(os.getenv("EXTERNAL_DATA_LINK"))
