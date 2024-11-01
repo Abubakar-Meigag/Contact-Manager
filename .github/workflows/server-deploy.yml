@@ -35,11 +35,11 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             key: ${{ secrets.EC2_SSH_KEY }}
             script: |
-              sudo docker pull abubakarmeigag/flask-contact-manager
-              sudo echo "${{ secrets.ENV_FILE_CONTENTS }}" > /home/ec2-user/.env
+              sudo docker pull your-dockerhub-username/flask-contact-manager:latest
               sudo docker stop flask-container || true
               sudo docker rm flask-container || true
-              sudo docker run -d --name flask-container --env-file /home/ec2-user/.env -p 5000:5000 abubakarmeigag/flask-contact-manager
+              sudo docker run -d --name flask-container --env-file /home/ec2-user/.env -p 5000:5000 your-dockerhub-username/flask-contact-manager:latest
+        
      
   
         
