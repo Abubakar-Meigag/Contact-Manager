@@ -24,7 +24,7 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-          docker build -t flask-contact-manager -f server/Dockerfile .
+          docker build --build-arg REQUIREMENTS_PATH=server -t flask-contact-manager -f server/Dockerfile .
           docker tag flask-contact-manager abubakarmeigag/flask-contact-manager
           docker push abubakarmeigag/flask-contact-manager
      

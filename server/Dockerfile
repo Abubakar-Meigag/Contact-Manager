@@ -1,5 +1,7 @@
 FROM python:3.9-slim
 
+# Declare the build argument
+ARG REQUIREMENTS_PATH=.
 
 # Install system dependencies required for psycopg2
 RUN apt-get update && \
@@ -10,7 +12,7 @@ RUN apt-get update && \
 WORKDIR /server
 
 # Copy requirements.txt into the container at /server
-COPY server/requirements.txt .
+COPY ${REQUIREMENTS_PATH}/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all files from the current server directory on the host to /server in the container
