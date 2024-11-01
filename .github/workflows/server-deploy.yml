@@ -12,12 +12,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - name: List repository files
-        run: ls -R
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
