@@ -40,7 +40,7 @@ jobs:
             host: ${{ secrets.EC2_HOST }}
             username: ${{ secrets.EC2_USER }}
             key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
+            script: |
               docker pull abubakarmeigag/flask-contact-manager
               echo "${{ secrets.ENV_FILE_CONTENTS }}" > /home/ec2-user/.env
               docker stop flask-container || true
