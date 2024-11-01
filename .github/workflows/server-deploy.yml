@@ -13,8 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-            fetch-depth: 0
-            submodules: true
+          fetch-depth: 0
+          submodules: true
 
       - name: List repository files
         run: ls -R
@@ -30,20 +30,19 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-            cd Contact-Manager/server
-            docker build -t flask-contact-manager -f ./server/Dockerfile
-            docker tag flask-contact-manager abubakarmeigag/flask-contact-manager
-            docker push abubakarmeigag/flask-contact-manager
+          docker build -t flask-contact-manager -f server/Dockerfile .
+          docker tag flask-contact-manager abubakarmeigag/flask-contact-manager
+          docker push abubakarmeigag/flask-contact-manager
 
       - name: SSH and deploy on EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
-            host: ${{ secrets.EC2_HOST }}
-            username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
-            script: |
-              docker build -t flask-contact-manager -f Contact-Manager/server 
-              echo "${{ secrets.ENV_FILE_CONTENTS }}" > /home/ec2-user/.env
-              docker stop flask-container || true
-              docker rm flask-container || true
-              docker run -d --name flask-container --env-file /home/ec2-user/.env -p 5000:5000 abubakarmeigag/flask-contact-manager
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull abubakarmeigag/flask-contact-manager
+            echo "${{ secrets.ENV_FILE_CONTENTS }}" > /home/ec2-user/.env
+            docker stop flask-container || true
+            docker rm flask-container || true
+            docker run -d --name flask-container --env-file /home/ec2-user/.env -p 5000:5000 abubakarmeigag/flask-contact-manager
