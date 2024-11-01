@@ -34,7 +34,6 @@ jobs:
             host: ${{ secrets.EC2_HOST }}
             username: ${{ secrets.SSH_USERNAME }}
             key: ${{ secrets.EC2_SSH_KEY }}
-            debug: true
             script: |
               sudo docker pull abubakarmeigag/flask-contact-manager
               sudo echo "${{ secrets.ENV_FILE_CONTENTS }}" > /home/ec2-user/.env

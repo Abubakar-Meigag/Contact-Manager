@@ -10,7 +10,7 @@ RUN apt-get update && \
 WORKDIR /server
 
 # Copy requirements.txt into the container at /server
-COPY server/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all files from the current server directory on the host to /server in the container
