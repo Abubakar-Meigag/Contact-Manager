@@ -46,4 +46,5 @@ jobs:
               docker stop flask-container || true
               docker rm flask-container || true
               docker run -d --name flask-container --env-file /home/ec2-user/.env -p 5000:5000 abubakarmeigag/flask-contact-manager
+  
         
