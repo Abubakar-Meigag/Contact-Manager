@@ -1,0 +1,50 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Copy files to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no -r . ec2-user@${{ secrets.EC2_PUBLIC_IP }}:/home/ec2-user/Contact-Manager
+
+      - name: SSH into EC2 and deploy
+        env:
+          EXTERNAL_DATA_LINK: ${{ secrets.EXTERNAL_DATA_LINK }}  # Pass the database connection string
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+            # Navigate to the app directory
+            cd /home/ec2-user/Contact-Manager/server
+
+            # Activate the virtual environment
+            source venv/bin/activate
+
+            # Install dependencies if there are any changes
+            pip install -r requirements.txt
+
+            # Create or update the .env file with the external data link
+            echo "EXTERNAL_DATA_LINK=$EXTERNAL_DATA_LINK" > .env
+
+            # Restart Gunicorn to apply the latest code changes
+            sudo systemctl restart gunicorn
+            sudo systemctl restart nginx
+          EOF
