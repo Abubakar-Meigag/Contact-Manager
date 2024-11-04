@@ -19,6 +19,7 @@ def home():
 def get_db_connection():
     conn = psycopg2.connect(os.getenv("EXTERNAL_DATA_LINK"))
     return conn
+print("Database URL:", os.getenv("EXTERNAL_DATA_LINK"))
 
 
 @app.route("/addContact", methods=["POST"])
