@@ -77,7 +77,7 @@ def get_contact():
 
         # Fetch all data from the "contact" table
         cur.execute(
-            "SELECT id, title, first_name, last_name, email, city, address FROM contact"
+             "SELECT id, title, first_name, last_name, email, city, address FROM contact"
         )
         rows = cur.fetchall()
 
